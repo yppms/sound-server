@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sounddb
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    image: yppms/sound-server:latest
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/sounddb
+      APP_PORT: 3003
+      NODE_ENV: development
+      SECRET: foobar
+    ports:
+      - "3003:3003"
+    volumes:
+     - ./mock_sounds:/usr/src/app/mock_sounds
+    command: sh -c "npx prisma migrate dev && npm run start"
+
+volumes:
+  db_data:
