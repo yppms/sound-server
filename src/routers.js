@@ -5,10 +5,13 @@ import { createScheduleController, getAllSchedulesController } from './controlle
 import { restAuthMiddleware } from './middleware/authMiddleware.js';
 import { reqValidation } from './middleware/reqValidationMiddleware.js';
 import { idParamSchema, addSoundToPlaylistSchema, scheduleSoundSchema } from './reqValidation.js';
+import { pingPongController } from './controllers/miscController.js';
 
 const router = express.Router();
 
 router.use('/mock_sounds', express.static('mock_sounds'));
+
+router.get('/ping', pingPongController);
 
 router.get('/sounds', restAuthMiddleware, getAllSoundsController);
 router.post('/sounds/:id/play', restAuthMiddleware, reqValidation(idParamSchema), playSoundController);
@@ -18,7 +21,5 @@ router.get('/sounds/schedule', restAuthMiddleware, getAllSchedulesController);
 
 router.get('/playlists', restAuthMiddleware, getAllPlaylistsController);
 router.post('/playlists/:id/play', restAuthMiddleware, reqValidation(idParamSchema), playTheListController);
-
-
 
 export default router

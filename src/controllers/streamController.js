@@ -9,6 +9,7 @@ export const handleStream = ws => {
         let data;
         try {
             data = JSON.parse(msg);
+            console.log('🚀 ~ data:', data)
         } catch (e) {
             return;
         }
@@ -22,10 +23,6 @@ export const handleStream = ws => {
                     sendCurrentPlaylistSound();
                     return
 
-                }
-                if (data.type === 'schedule') {
-                    sendCurrentPlaylistSound();
-                    return
                 }
 
                 break;
