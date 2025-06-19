@@ -1,49 +1,46 @@
-# Sound Server Backend
+# Sound Server
 
-This project is a backend service for a Music Player IoT Project.
+Backend service for the IOT Sound Player (YPPMS).
 
 ## Tech Stack
 
-- Node.js (JavaScript, ES6)
-- Express.js (REST API)
-- ws (WebSocket, mounted at /handshake)
-- PostgreSQL (with Prisma ORM)
-- UUIDs for IDs
+- Node.js
+- Express.js
+- WebSocket
+- PostgreSQL (Prisma ORM)
+- Docker & Docker Compose
+
+## Local Development
+
+1. Copy `.env-example` to `.env` and adjust as needed
+2. Add sound files to `/mock_sounds` for demo / testing
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Run database migrations:
+
+   ```bash
+   npm run migrate:dev
+   ```
+
+5. Start the development server:
+
+   ```bash
+   npm run start:dev
+   ```
+
+6. The app will be available at `http://localhost:<APP_PORT>`
 
 ## Features
 
-- Song collection with file URL field
-- Playlist feature with song order
-- REST API for user interface
-- WebSocket for microcontroller communication
-- Functional programming style, decoupled routing/controllers
-- Mock song data handling (local files)
+- Automatic sound file discovery: add files to `/mock_sounds` and they're added to the database
+- WebSocket streaming available on `/play`
+- Simple secret-based authentication
+- Out-of-the-box Docker Compose support on release package
 
-## Setup
+## API Collection
 
-1. Configure your PostgreSQL database in `.env` (see below).
-2. Run migrations: `npx prisma migrate dev --name init`
-3. Start the server: `node src/index.js`
-
-## Database Connection Example
-
-`DATABASE_URL="postgresql://postgres:postgres@localhost:5432/sounddb"`
-
-## Endpoints
-
-- `POST /play/:songID` — Play a song (sends WebSocket command)
-- Playlist endpoints (TBD)
-
-## WebSocket
-
-- Mounted at `/handshake`
-- Receives and sends JSON commands to the microcontroller
-
-## Folder Structure
-
-- `src/` — Main source code
-- `prisma/` — Prisma schema
-- `mock_songs/` — Place your song files here
-
----
-Replace mock data and endpoints as needed for your use case.
+- Postman workspace: [https://www.postman.com/yppms/sound-server](https://www.postman.com/yppms/sound-server)
