@@ -11,6 +11,7 @@ import { seedData, soundsWatcher } from './services/seedService.js';
 import { errorMiddleware } from './middleware/errorMiddleware.js';
 import { wsAuthMiddleware } from './middleware/authMiddleware.js';
 import { startSoundScheduler } from './services/scheduleService.js';
+import { notFoundController } from './controllers/miscController.js';
 
 // Config
 const APP_PORT = process.env.APP_PORT || 3000;
@@ -21,6 +22,7 @@ const app = express();
 app.use(express.json());
 app.use(router);
 app.use(errorMiddleware);
+app.use(notFoundController);
 
 // HTTP and WebSocket server setup
 const server = createServer(app);

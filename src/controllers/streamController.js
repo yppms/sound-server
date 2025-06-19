@@ -23,10 +23,6 @@ export const handleStream = ws => {
                     return
 
                 }
-                if (data.type === 'schedule') {
-                    sendCurrentPlaylistSound();
-                    return
-                }
 
                 break;
         }
