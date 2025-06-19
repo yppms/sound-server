@@ -9,7 +9,6 @@ export const handleStream = ws => {
         let data;
         try {
             data = JSON.parse(msg);
-            console.log('🚀 ~ data:', data)
         } catch (e) {
             return;
         }
